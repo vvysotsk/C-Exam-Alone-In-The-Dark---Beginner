@@ -136,7 +136,7 @@ int main(int ac, char **av)
         res = ft_add(av[1] + 1, av[2] + 1);
     }
     else if (av[1][0] != '-' && av[2][0] != '-')
-        res = ft_add(av[s1], av[2]);
+        res = ft_add(av[1], av[2]);
     else
     {
         if (av[1][0] == '-')
