@@ -6,7 +6,7 @@
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 16:22:26 by exam              #+#    #+#             */
-/*   Updated: 2018/04/06 16:22:30 by exam             ###   ########.fr       */
+/*   Updated: 2018/04/11 13:14:38 by vvysotsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_prime(char *str)
 {
 	int	nb;
-	int prime;
+	int	prime;
 
 	prime = 2;
 	nb = atoi(str);
@@ -33,6 +33,7 @@ void	ft_prime(char *str)
 		{
 			nb /= prime;
 			printf("%d", prime);
+			prime = 1;
 			if (nb != 1)
 				printf("%c", '*');
 		}
@@ -41,7 +42,7 @@ void	ft_prime(char *str)
 	printf("%c", '\n');
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	if (ac == 2)
 		ft_prime(av[1]);
