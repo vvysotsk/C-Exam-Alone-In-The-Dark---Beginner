@@ -24,13 +24,13 @@ int		check_mate(char **board, int ar_i)
 			if (board[ar_i][i] == 'R' || board[ar_i][i] == 'Q' ||\
 				board[ar_i][i] == 'P' || board[ar_i][i] == 'B')
 			{
-				if (check_rook(board, ar_i, i) == 1)
+				if (board[ar_i][i] == 'R' && check_rook(board, ar_i, i) == 1)
 					return (1);
-				else if (check_queen(board, ar_i, i) == 1)
+				else if (board[ar_i][i] == 'Q' && check_queen(board, ar_i, i) == 1)
 					return (1);
-				else if (check_pawn(board, ar_i, i) == 1)
+				else if (board[ar_i][i] == 'P' && check_pawn(board, ar_i, i) == 1)
 					return (1);
-				else if (check_bishop(board, ar_i, i) == 1)
+				else if (board[ar_i][i] == 'B' && check_bishop(board, ar_i, i) == 1)
 					return (1);
 			}
 			i++;

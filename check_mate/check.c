@@ -70,7 +70,7 @@ int		check_rdiag(char **board, int ar_i, int i)
 		ar_i++;
 		i--;
 	}
-	while (ar_i != 1 && board[ar_i][i])
+	while (ar_i > 1 && board[ar_i][i])
 	{
 		if (board[ar_i][i] == 'K')
 		{
