@@ -25,28 +25,33 @@ char *ft_diff(char *a, char *b)
     len_a = ft_strlen(a);
     len_b = ft_strlen(b);
     if (len_a >= len_b)
-        len = len_a;
+        len = len_a + 1;
     else
-        len = len_b;
-    out = (char *)malloc(sizeof(char) * len + 1);
-    out[len + 1] = 0;
+        len = len_b + 1;
+    out = (char *)malloc(sizeof(char) * len);
+    out[len] = 0;
     while (index < len_a || index < len_b)
     {
         if (index >= len_a)
         {
-
+            out[len - index - 1] = ((b[len_b - index - 1] - '0') - rest + 10) % 10 + '0';
+            rest = ((b[len_b - index - 1] - '0') - rest) < 0;
         }
         else if (index >= len_b)
         {
-
+            out[len - index - 1] = ((a[len_a - index - 1] - '0') - rest + 10) % 10 + '0';
+            rest = ((a[len_a - index - 1] - '0') - rest) < 0;
         }
         else
         {
-            out[len - index] = ((a[len_a - index] - '0') - (b[len_b - index] - '0') - rest + 10) % 10 + '0';
-			rest = ((a[len_a - index] - '0') - (b[len_b - index] - '0') - rest) < 0;
+            out[len - index - 1] = ((a[len_a - index - 1] - '0') - (b[len_b - index - 1] - '0') - rest + 10) % 10 + '0';
+			rest = ((a[len_a - index - 1] - '0') - (b[len_b - index - 1] - '0') - rest) < 0;
         }
         index++;
     }
+    out = out + len - index;
+    while (out[0] == '0')
+        out++;
     return (out);
 }
 
@@ -91,35 +96,38 @@ char *ft_add(char *a, char *b)
     index = 0;
     rest = 0;
     if (len_a >= len_b)
-        len = len_a;
-    else if (len_a < len_b)
-        len = len_b;
-    out = (char *)malloc(sizeof(char) * len + 1);
-    out[len + 1] = 0;
+        len = len_a + 1;
+    else
+        len = len_b + 1;
+    out = (char *)malloc(sizeof(char) * len);
+    out[len] = 0;
+    out[0] = '0';
     while (index < len_a || index < len_b || rest)
     {
         if (index >= len_a && index >= len_b)
         {
-            out[len - index] = rest % 10 + '0';
+            out[len - index - 1] = rest % 10 + '0';
             rest = rest / 10;
         }
         else if (index >= len_a)
         {
-            out[len - index] = (rest + (b[len_b - index] - '0')) % 10 + '0';
+            out[len - index - 1] = (rest + (b[len_b - index - 1] - '0')) % 10 + '0';
             rest = (rest + (b[len_b - index] - '0')) / 10;
         }
         else if (index >= len_b)
         {
-            out[len - index] = (rest + (a[len - index] - '0')) % 10 +'0';
+            out[len - index - 1] = (rest + (a[len - index - 1] - '0')) % 10 +'0';
             rest = (rest + (a[len - index - 1] - '0')) / 10;
         }
         else
         {
-            out[len - index - 1] = (rest + (a[len_a - index] - '0') + (b[len_b - index] - '0')) % 10 + '0';
-            rest = (rest + (a[len_a - index] - '0') + (b[len_b - index] - '0')) / 10;
+            out[len - index - 1] = (rest + (a[len_a - index - 1] - '0') + (b[len_b - index - 1] - '0')) % 10 + '0';
+            rest = (rest + (a[len_a - index - 1] - '0') + (b[len_b - index - 1] - '0')) / 10;
         }
         index++;
     }
+    while (out[0] == '0')
+        out++;
     return (out);
 }
 
@@ -154,7 +162,7 @@ int main(int ac, char **av)
         }
         else
         {
-            comp = ft_compare(av[1], av[2] + 1);
+            comp = ft_compare(av[2] + 1, av[1]);
             if (comp > 0)
             {
                 write(1, "-", 1);
